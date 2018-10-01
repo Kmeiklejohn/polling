@@ -1,5 +1,5 @@
 let time = Date.now();
-
+const photos = document.getElementById('photos')
 const fetchData = () => {
     fetch("/latest", {
             method: 'POST',
@@ -14,15 +14,16 @@ const fetchData = () => {
         .then(response => {
             time = response.latestPost
             console.log(response)
-            if (response.latestPost > time) {
-                time = response.latestPost
+            console.log(response.latestPost)
+            console.log(time)
+          
                 response.images.forEach(image => {
-                    const img = document.createElement('img')
-                    img.src = image
-                    const photos = document.getElementById('photos')
+                    let img = document.createElement('img')
+                    console.log(photos)
+                    img.src = `uploads/${image}`;
                     photos.appendChild(img)
                 });
-            }
+            
             
             setTimeout(fetchData, 5000)
         })

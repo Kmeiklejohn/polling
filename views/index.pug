@@ -11,7 +11,7 @@ html(lang="en")
             input(type="file", name="image")
             input(type="submit", value="upload") 
             input(type="button", value="home")
-        div 
+        div(id="photos")
             each val in items
                 img(src='uploads/'+val)
         script(src="/scripts.js")

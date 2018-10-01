@@ -26,10 +26,11 @@ app.post('/', upload.single('image'), function (request, response, next) {
   })
 })
 
-app.post('/latest', (request, response, next) => {
+app.post('/latest', (request, response) => {
     fs.readdir(path , (error, items) => {
       let motified = ''
       let latestPost = request.body.after
+      let timestamp = 0;
       let images = []
       items.forEach(item => {
         motified = fs.statSync(`./public/uploads/${item}`).mtimeMs;
@@ -37,10 +38,13 @@ app.post('/latest', (request, response, next) => {
 
           if(motified > latestPost){
             images.push(item);
-            motified = latestPost;
+          //  motified = latestPost;
+          }
+          if(motified > timestamp){
+            timestamp = motified 
           }
       })
-      response.send({"images": images , "latestPost": latestPost})
+      response.send({"images":images  , "latestPost": timestamp})
     })
 })
 
