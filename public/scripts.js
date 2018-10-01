@@ -1,5 +1,7 @@
 let time = Date.now();
 const photos = document.getElementById('photos')
+let errorCount = 0
+
 const fetchData = () => {
     fetch("/latest", {
             method: 'POST',
@@ -26,6 +28,15 @@ const fetchData = () => {
             
             
             setTimeout(fetchData, 5000)
+        }).catch(error => {
+            errorCount++
+            if(errorCount === 2){
+                alert("Server is down")
+            }else {
+            setTimeout(fetchData, 5000)
+
+            }
         })
+        
 }
 fetchData()
